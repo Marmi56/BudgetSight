@@ -28,21 +28,399 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sfondoHome = new javax.swing.JPanel();
+        navBar = new javax.swing.JPanel();
+        nome = new java.awt.Label();
+        caricaCSV = new javax.swing.JButton();
+        salva = new javax.swing.JButton();
+        info = new javax.swing.JButton();
+        budgetTot = new javax.swing.JPanel();
+        colore1 = new javax.swing.JPanel();
+        budgetTotL = new java.awt.Label();
+        speseTot = new javax.swing.JPanel();
+        colore2 = new javax.swing.JPanel();
+        speseTotL = new java.awt.Label();
+        nRepartiAttivi = new javax.swing.JPanel();
+        colore3 = new javax.swing.JPanel();
+        nRepartiAttiviL = new java.awt.Label();
+        jPanel4 = new javax.swing.JPanel();
+        colore4 = new javax.swing.JPanel();
+        catMaxSpesaL = new java.awt.Label();
+        graficoBudget = new javax.swing.JPanel();
+        graficoSpese = new javax.swing.JPanel();
+        graficoRepartiSforamento = new javax.swing.JPanel();
+        graficoCategorieSpese = new javax.swing.JPanel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        sfondoHome.setBackground(new java.awt.Color(188, 210, 243));
+        sfondoHome.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(51, 0, 153), 1, true));
+
+        navBar.setBackground(new java.awt.Color(51, 51, 255));
+
+        nome.setFont(new java.awt.Font("Verdana", 1, 32)); // NOI18N
+        nome.setForeground(new java.awt.Color(255, 255, 255));
+        nome.setText("BudgetSight");
+
+        caricaCSV.setBackground(new java.awt.Color(51, 51, 255));
+        caricaCSV.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        caricaCSV.setForeground(new java.awt.Color(255, 255, 255));
+        caricaCSV.setText("Carica CSV");
+        caricaCSV.setBorder(null);
+        caricaCSV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                caricaCSVMouseClicked(evt);
+            }
+        });
+        caricaCSV.addActionListener(this::caricaCSVActionPerformed);
+
+        salva.setBackground(new java.awt.Color(51, 51, 255));
+        salva.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        salva.setForeground(new java.awt.Color(255, 255, 255));
+        salva.setText("Salva");
+        salva.setBorder(null);
+        salva.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salvaMouseClicked(evt);
+            }
+        });
+        salva.addActionListener(this::salvaActionPerformed);
+
+        info.setBackground(new java.awt.Color(51, 51, 255));
+        info.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        info.setForeground(new java.awt.Color(255, 255, 255));
+        info.setText("Info");
+        info.setBorder(null);
+        info.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                infoMouseClicked(evt);
+            }
+        });
+        info.addActionListener(this::infoActionPerformed);
+
+        javax.swing.GroupLayout navBarLayout = new javax.swing.GroupLayout(navBar);
+        navBar.setLayout(navBarLayout);
+        navBarLayout.setHorizontalGroup(
+            navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navBarLayout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(caricaCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salva, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108))
+        );
+        navBarLayout.setVerticalGroup(
+            navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navBarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(caricaCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(salva, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
+        budgetTot.setBackground(new java.awt.Color(53, 95, 232));
+        budgetTot.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+
+        colore1.setBackground(new java.awt.Color(255, 153, 51));
+
+        javax.swing.GroupLayout colore1Layout = new javax.swing.GroupLayout(colore1);
+        colore1.setLayout(colore1Layout);
+        colore1Layout.setHorizontalGroup(
+            colore1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 11, Short.MAX_VALUE)
+        );
+        colore1Layout.setVerticalGroup(
+            colore1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        budgetTotL.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        budgetTotL.setForeground(new java.awt.Color(255, 255, 255));
+        budgetTotL.setText("Budget Totale:");
+
+        javax.swing.GroupLayout budgetTotLayout = new javax.swing.GroupLayout(budgetTot);
+        budgetTot.setLayout(budgetTotLayout);
+        budgetTotLayout.setHorizontalGroup(
+            budgetTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(budgetTotLayout.createSequentialGroup()
+                .addComponent(colore1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(budgetTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 217, Short.MAX_VALUE))
+        );
+        budgetTotLayout.setVerticalGroup(
+            budgetTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, budgetTotLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(budgetTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(budgetTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colore1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        speseTot.setBackground(new java.awt.Color(53, 95, 232));
+        speseTot.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+
+        colore2.setBackground(new java.awt.Color(0, 204, 0));
+
+        javax.swing.GroupLayout colore2Layout = new javax.swing.GroupLayout(colore2);
+        colore2.setLayout(colore2Layout);
+        colore2Layout.setHorizontalGroup(
+            colore2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 11, Short.MAX_VALUE)
+        );
+        colore2Layout.setVerticalGroup(
+            colore2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        speseTotL.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        speseTotL.setForeground(new java.awt.Color(255, 255, 255));
+        speseTotL.setText("Spese Totali:");
+
+        javax.swing.GroupLayout speseTotLayout = new javax.swing.GroupLayout(speseTot);
+        speseTot.setLayout(speseTotLayout);
+        speseTotLayout.setHorizontalGroup(
+            speseTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(speseTotLayout.createSequentialGroup()
+                .addComponent(colore2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(speseTotL, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 209, Short.MAX_VALUE))
+        );
+        speseTotLayout.setVerticalGroup(
+            speseTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, speseTotLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(speseTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(speseTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colore2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        nRepartiAttivi.setBackground(new java.awt.Color(53, 95, 232));
+        nRepartiAttivi.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+
+        colore3.setBackground(new java.awt.Color(255, 51, 204));
+
+        javax.swing.GroupLayout colore3Layout = new javax.swing.GroupLayout(colore3);
+        colore3.setLayout(colore3Layout);
+        colore3Layout.setHorizontalGroup(
+            colore3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 11, Short.MAX_VALUE)
+        );
+        colore3Layout.setVerticalGroup(
+            colore3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        nRepartiAttiviL.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        nRepartiAttiviL.setForeground(new java.awt.Color(255, 255, 255));
+        nRepartiAttiviL.setText("Sforamento Totale:");
+
+        javax.swing.GroupLayout nRepartiAttiviLayout = new javax.swing.GroupLayout(nRepartiAttivi);
+        nRepartiAttivi.setLayout(nRepartiAttiviLayout);
+        nRepartiAttiviLayout.setHorizontalGroup(
+            nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nRepartiAttiviLayout.createSequentialGroup()
+                .addComponent(colore3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nRepartiAttiviL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 143, Short.MAX_VALUE))
+        );
+        nRepartiAttiviLayout.setVerticalGroup(
+            nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nRepartiAttiviLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nRepartiAttiviL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colore3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel4.setBackground(new java.awt.Color(53, 95, 232));
+        jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        jPanel4.setForeground(new java.awt.Color(255, 255, 255));
+
+        colore4.setBackground(new java.awt.Color(255, 255, 0));
+
+        javax.swing.GroupLayout colore4Layout = new javax.swing.GroupLayout(colore4);
+        colore4.setLayout(colore4Layout);
+        colore4Layout.setHorizontalGroup(
+            colore4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 11, Short.MAX_VALUE)
+        );
+        colore4Layout.setVerticalGroup(
+            colore4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        catMaxSpesaL.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        catMaxSpesaL.setForeground(new java.awt.Color(255, 255, 255));
+        catMaxSpesaL.setText("Categoria Max Spesa:");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(colore4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(catMaxSpesaL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 162, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(catMaxSpesaL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colore4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        graficoBudget.setBackground(new java.awt.Color(255, 255, 255));
+        graficoBudget.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(53, 95, 232), 2, true));
+
+        javax.swing.GroupLayout graficoBudgetLayout = new javax.swing.GroupLayout(graficoBudget);
+        graficoBudget.setLayout(graficoBudgetLayout);
+        graficoBudgetLayout.setHorizontalGroup(
+            graficoBudgetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        graficoBudgetLayout.setVerticalGroup(
+            graficoBudgetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 336, Short.MAX_VALUE)
+        );
+
+        graficoSpese.setBackground(new java.awt.Color(255, 255, 255));
+        graficoSpese.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(53, 95, 232), 2, true));
+
+        javax.swing.GroupLayout graficoSpeseLayout = new javax.swing.GroupLayout(graficoSpese);
+        graficoSpese.setLayout(graficoSpeseLayout);
+        graficoSpeseLayout.setHorizontalGroup(
+            graficoSpeseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        graficoSpeseLayout.setVerticalGroup(
+            graficoSpeseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 336, Short.MAX_VALUE)
+        );
+
+        graficoRepartiSforamento.setBackground(new java.awt.Color(255, 255, 255));
+        graficoRepartiSforamento.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(53, 95, 232), 2, true));
+
+        javax.swing.GroupLayout graficoRepartiSforamentoLayout = new javax.swing.GroupLayout(graficoRepartiSforamento);
+        graficoRepartiSforamento.setLayout(graficoRepartiSforamentoLayout);
+        graficoRepartiSforamentoLayout.setHorizontalGroup(
+            graficoRepartiSforamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        graficoRepartiSforamentoLayout.setVerticalGroup(
+            graficoRepartiSforamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 336, Short.MAX_VALUE)
+        );
+
+        graficoCategorieSpese.setBackground(new java.awt.Color(255, 255, 255));
+        graficoCategorieSpese.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(53, 95, 232), 2, true));
+
+        javax.swing.GroupLayout graficoCategorieSpeseLayout = new javax.swing.GroupLayout(graficoCategorieSpese);
+        graficoCategorieSpese.setLayout(graficoCategorieSpeseLayout);
+        graficoCategorieSpeseLayout.setHorizontalGroup(
+            graficoCategorieSpeseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        graficoCategorieSpeseLayout.setVerticalGroup(
+            graficoCategorieSpeseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 336, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout sfondoHomeLayout = new javax.swing.GroupLayout(sfondoHome);
+        sfondoHome.setLayout(sfondoHomeLayout);
+        sfondoHomeLayout.setHorizontalGroup(
+            sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(navBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(sfondoHomeLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(graficoBudget, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(budgetTot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(speseTot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(graficoSpese, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nRepartiAttivi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(graficoRepartiSforamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(graficoCategorieSpese, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+        sfondoHomeLayout.setVerticalGroup(
+            sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sfondoHomeLayout.createSequentialGroup()
+                .addComponent(navBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(nRepartiAttivi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(budgetTot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(speseTot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(graficoSpese, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(graficoRepartiSforamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(graficoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(graficoCategorieSpese, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(355, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(sfondoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(sfondoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        sfondoHome.getAccessibleContext().setAccessibleName("Base");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void infoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_infoActionPerformed
+
+    private void infoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_infoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_infoMouseClicked
+
+    private void salvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvaActionPerformed
+
+    private void salvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salvaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvaMouseClicked
+
+    private void caricaCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaCSVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_caricaCSVActionPerformed
+
+    private void caricaCSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caricaCSVMouseClicked
+     // TODO add your handling code here:
+    }//GEN-LAST:event_caricaCSVMouseClicked
 
     /**
      * @param args the command line arguments
@@ -70,5 +448,27 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel budgetTot;
+    private java.awt.Label budgetTotL;
+    private javax.swing.JButton caricaCSV;
+    private java.awt.Label catMaxSpesaL;
+    private javax.swing.JPanel colore1;
+    private javax.swing.JPanel colore2;
+    private javax.swing.JPanel colore3;
+    private javax.swing.JPanel colore4;
+    private javax.swing.JPanel graficoBudget;
+    private javax.swing.JPanel graficoCategorieSpese;
+    private javax.swing.JPanel graficoRepartiSforamento;
+    private javax.swing.JPanel graficoSpese;
+    private javax.swing.JButton info;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel nRepartiAttivi;
+    private java.awt.Label nRepartiAttiviL;
+    private javax.swing.JPanel navBar;
+    private java.awt.Label nome;
+    private javax.swing.JButton salva;
+    private javax.swing.JPanel sfondoHome;
+    private javax.swing.JPanel speseTot;
+    private java.awt.Label speseTotL;
     // End of variables declaration//GEN-END:variables
 }
