@@ -188,7 +188,7 @@ public class VoceBudget {
     // METODI
 
     /**
-     * Restituisce la riga nel formato CSV pronta per essere scritta su file.
+     * Restituisce la riga nel formato CSV pronta per essere scritta su file. Utile per il salvamento del file
      */
     public String toCSV() {
         return idVoce + SEPARATORE +

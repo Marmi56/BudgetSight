@@ -54,7 +54,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="navBar" alignment="1" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="graficoBudget" max="32767" attributes="0"/>
@@ -97,7 +97,7 @@
                       <Component id="graficoBudget" min="-2" max="-2" attributes="0"/>
                       <Component id="graficoCategorieSpese" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="355" max="32767" attributes="0"/>
+                  <EmptySpace pref="330" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -122,7 +122,8 @@
                       <Component id="caricaCSV" min="-2" pref="117" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="salva" min="-2" pref="83" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="salvaConNome" min="-2" pref="182" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -135,6 +136,7 @@
                               <Component id="info" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="caricaCSV" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                               <Component id="salva" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
+                              <Component id="salvaConNome" alignment="3" min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <Component id="nome" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -218,6 +220,27 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="infoActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="salvaConNome">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="33" red="33" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Verdana" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Salva con nome"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="salvaConNomeMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvaConNomeActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="budgetTot">
@@ -239,9 +262,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="colore1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="budgetTotL" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="217" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="budgetTotL" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                              <Component id="budgetLable" min="-2" pref="230" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="69" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -250,7 +281,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="budgetTotL" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="budgetTotL" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="budgetLable" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="colore1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -289,6 +324,15 @@
                 <Property name="text" type="java.lang.String" value="Budget Totale:"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="budgetLable">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="BUDGET TOTALE"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="speseTot">
@@ -310,9 +354,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="colore2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="speseTotL" min="-2" pref="134" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="209" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="speseTotL" min="-2" pref="134" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                              <Component id="speseLable" min="-2" pref="230" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="68" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -321,7 +373,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="speseTotL" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="speseTotL" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="speseLable" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="colore2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -360,6 +416,15 @@
                 <Property name="text" type="java.lang.String" value="Spese Totali:"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="speseLable">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="SPESE TOTALI"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="nRepartiAttivi">
@@ -381,9 +446,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="colore3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nRepartiAttiviL" min="-2" pref="200" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="143" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nRepartiAttiviL" min="-2" pref="200" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace pref="66" max="32767" attributes="0"/>
+                              <Component id="sforamentoLable" min="-2" pref="230" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -392,7 +466,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="nRepartiAttiviL" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="nRepartiAttiviL" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="sforamentoLable" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="colore3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -431,6 +509,15 @@
                 <Property name="text" type="java.lang.String" value="Sforamento Totale:"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="sforamentoLable">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="SFORAMENTO TOTALE"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel4">
@@ -455,9 +542,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="colore4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="catMaxSpesaL" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="162" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="catMaxSpesaL" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="162" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="maxSpesaLable" min="-2" pref="237" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -466,7 +562,11 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="catMaxSpesaL" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="catMaxSpesaL" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="maxSpesaLable" min="-2" pref="40" max="-2" attributes="0"/>
+                          </Group>
                           <Component id="colore4" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -503,6 +603,15 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Categoria Max Spesa:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="maxSpesaLable">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="CATEGORIA CON MASSIMA SPESA"/>
               </Properties>
             </Component>
           </SubComponents>

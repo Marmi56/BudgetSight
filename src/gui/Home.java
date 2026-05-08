@@ -4,6 +4,15 @@
  */
 package gui;
 
+import exceptions.*;
+import java.io.File;
+import java.io.IOException;
+import java.text.NumberFormat;
+import java.util.Locale;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import model.BudgetSight;
+
 /**
  *
  * @author Computer
@@ -11,12 +20,32 @@ package gui;
 public class Home extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Home.class.getName());
+    
+    //creo la classe gestore
+    public BudgetSight bs = new BudgetSight();
+    //puntatore all'oggetto della tabella con tutti gli elementi del csv
+    TabellaVoci tabella;
+    //file aperto
+    File file;
+    
 
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+        setResizable(false);
+    }
+    
+    public static String formattaEuro(double importo) {
+        return NumberFormat.getCurrencyInstance(Locale.ITALY).format(importo);
+    }
+    
+    public void aggiornaDashboard() {
+        budgetLable.setText(formattaEuro(bs.getBudgetTotale()));
+        speseLable.setText(formattaEuro(bs.getSpeseTotali()));
+        sforamentoLable.setText(formattaEuro(bs.getTotaleSforamento()));
+        maxSpesaLable.setText(bs.getCategoriaMaxSpesa());
     }
 
     /**
@@ -34,18 +63,23 @@ public class Home extends javax.swing.JFrame {
         caricaCSV = new javax.swing.JButton();
         salva = new javax.swing.JButton();
         info = new javax.swing.JButton();
+        salvaConNome = new javax.swing.JButton();
         budgetTot = new javax.swing.JPanel();
         colore1 = new javax.swing.JPanel();
         budgetTotL = new java.awt.Label();
+        budgetLable = new javax.swing.JLabel();
         speseTot = new javax.swing.JPanel();
         colore2 = new javax.swing.JPanel();
         speseTotL = new java.awt.Label();
+        speseLable = new javax.swing.JLabel();
         nRepartiAttivi = new javax.swing.JPanel();
         colore3 = new javax.swing.JPanel();
         nRepartiAttiviL = new java.awt.Label();
+        sforamentoLable = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         colore4 = new javax.swing.JPanel();
         catMaxSpesaL = new java.awt.Label();
+        maxSpesaLable = new javax.swing.JLabel();
         graficoBudget = new javax.swing.JPanel();
         graficoSpese = new javax.swing.JPanel();
         graficoRepartiSforamento = new javax.swing.JPanel();
@@ -98,6 +132,18 @@ public class Home extends javax.swing.JFrame {
         });
         info.addActionListener(this::infoActionPerformed);
 
+        salvaConNome.setBackground(new java.awt.Color(51, 51, 255));
+        salvaConNome.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        salvaConNome.setForeground(new java.awt.Color(255, 255, 255));
+        salvaConNome.setText("Salva con nome");
+        salvaConNome.setBorder(null);
+        salvaConNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                salvaConNomeMouseClicked(evt);
+            }
+        });
+        salvaConNome.addActionListener(this::salvaConNomeActionPerformed);
+
         javax.swing.GroupLayout navBarLayout = new javax.swing.GroupLayout(navBar);
         navBar.setLayout(navBarLayout);
         navBarLayout.setHorizontalGroup(
@@ -111,7 +157,8 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(caricaCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salva, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salvaConNome, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         navBarLayout.setVerticalGroup(
             navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +168,8 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(navBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(info, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(caricaCSV, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(salva, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(salva, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(salvaConNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
@@ -146,22 +194,34 @@ public class Home extends javax.swing.JFrame {
         budgetTotL.setForeground(new java.awt.Color(255, 255, 255));
         budgetTotL.setText("Budget Totale:");
 
+        budgetLable.setForeground(new java.awt.Color(255, 255, 255));
+        budgetLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        budgetLable.setText("BUDGET TOTALE");
+
         javax.swing.GroupLayout budgetTotLayout = new javax.swing.GroupLayout(budgetTot);
         budgetTot.setLayout(budgetTotLayout);
         budgetTotLayout.setHorizontalGroup(
             budgetTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(budgetTotLayout.createSequentialGroup()
                 .addComponent(colore1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(budgetTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 217, Short.MAX_VALUE))
+                .addGroup(budgetTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(budgetTotLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(budgetTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(budgetTotLayout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(budgetLable, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 69, Short.MAX_VALUE))
         );
         budgetTotLayout.setVerticalGroup(
             budgetTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, budgetTotLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(budgetTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(budgetTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(budgetTotLayout.createSequentialGroup()
+                        .addComponent(budgetTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(budgetLable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(colore1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -185,22 +245,34 @@ public class Home extends javax.swing.JFrame {
         speseTotL.setForeground(new java.awt.Color(255, 255, 255));
         speseTotL.setText("Spese Totali:");
 
+        speseLable.setForeground(new java.awt.Color(255, 255, 255));
+        speseLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        speseLable.setText("SPESE TOTALI");
+
         javax.swing.GroupLayout speseTotLayout = new javax.swing.GroupLayout(speseTot);
         speseTot.setLayout(speseTotLayout);
         speseTotLayout.setHorizontalGroup(
             speseTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(speseTotLayout.createSequentialGroup()
                 .addComponent(colore2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(speseTotL, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 209, Short.MAX_VALUE))
+                .addGroup(speseTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(speseTotLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(speseTotL, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(speseTotLayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(speseLable, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 68, Short.MAX_VALUE))
         );
         speseTotLayout.setVerticalGroup(
             speseTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, speseTotLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(speseTotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(speseTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(speseTotLayout.createSequentialGroup()
+                        .addComponent(speseTotL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(speseLable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(colore2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -224,22 +296,35 @@ public class Home extends javax.swing.JFrame {
         nRepartiAttiviL.setForeground(new java.awt.Color(255, 255, 255));
         nRepartiAttiviL.setText("Sforamento Totale:");
 
+        sforamentoLable.setForeground(new java.awt.Color(255, 255, 255));
+        sforamentoLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        sforamentoLable.setText("SFORAMENTO TOTALE");
+
         javax.swing.GroupLayout nRepartiAttiviLayout = new javax.swing.GroupLayout(nRepartiAttivi);
         nRepartiAttivi.setLayout(nRepartiAttiviLayout);
         nRepartiAttiviLayout.setHorizontalGroup(
             nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nRepartiAttiviLayout.createSequentialGroup()
                 .addComponent(colore3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nRepartiAttiviL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 143, Short.MAX_VALUE))
+                .addGroup(nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nRepartiAttiviLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nRepartiAttiviL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nRepartiAttiviLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addComponent(sforamentoLable, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))))
         );
         nRepartiAttiviLayout.setVerticalGroup(
             nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nRepartiAttiviLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nRepartiAttiviL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(nRepartiAttiviLayout.createSequentialGroup()
+                        .addComponent(nRepartiAttiviL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sforamentoLable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(colore3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -264,22 +349,35 @@ public class Home extends javax.swing.JFrame {
         catMaxSpesaL.setForeground(new java.awt.Color(255, 255, 255));
         catMaxSpesaL.setText("Categoria Max Spesa:");
 
+        maxSpesaLable.setForeground(new java.awt.Color(255, 255, 255));
+        maxSpesaLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maxSpesaLable.setText("CATEGORIA CON MASSIMA SPESA");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(colore4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(catMaxSpesaL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 162, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(catMaxSpesaL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 162, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(maxSpesaLable, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(catMaxSpesaL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(catMaxSpesaL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(maxSpesaLable, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(colore4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
@@ -379,7 +477,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(graficoRepartiSforamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(graficoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(graficoCategorieSpese, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(355, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -412,6 +510,15 @@ public class Home extends javax.swing.JFrame {
 
     private void salvaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salvaMouseClicked
         // TODO add your handling code here:
+        try {
+            bs.salvaCSV(file);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        } catch (FileException e) {
+            System.err.println(e.getMessage());
+        }
+        
+        
     }//GEN-LAST:event_salvaMouseClicked
 
     private void caricaCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caricaCSVActionPerformed
@@ -420,7 +527,56 @@ public class Home extends javax.swing.JFrame {
 
     private void caricaCSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_caricaCSVMouseClicked
      // TODO add your handling code here:
+     JFileChooser fileChooser = new JFileChooser();
+     
+        //setto il filtro per file csv
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("File CSV (*.csv)", "csv");
+        fileChooser.setFileFilter(filtro);
+     
+        int risultato = fileChooser.showOpenDialog(this);
+
+        if (risultato == JFileChooser.APPROVE_OPTION) {
+            file = fileChooser.getSelectedFile();
+            
+        try {
+                bs.caricaCSV(file);
+                aggiornaDashboard();
+                
+                
+                tabella = new TabellaVoci(bs);
+            } catch(IOException e) {
+                System.err.println("Lettura del CSV non riuscita");
+            }
+            
+        }
     }//GEN-LAST:event_caricaCSVMouseClicked
+
+    private void salvaConNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salvaConNomeMouseClicked
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        int risultato = fileChooser.showSaveDialog(this);
+        
+        String path;
+        if (risultato == JFileChooser.APPROVE_OPTION) {
+            path = fileChooser.getSelectedFile().getAbsolutePath();
+            try {
+                bs.salvaCSV(path);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            } catch (FileException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        else {
+            System.err.println("Abortito il salvataggio del file");
+        }
+        
+        
+    }//GEN-LAST:event_salvaConNomeMouseClicked
+
+    private void salvaConNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaConNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salvaConNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -448,6 +604,7 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel budgetLable;
     private javax.swing.JPanel budgetTot;
     private java.awt.Label budgetTotL;
     private javax.swing.JButton caricaCSV;
@@ -462,12 +619,16 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel graficoSpese;
     private javax.swing.JButton info;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JLabel maxSpesaLable;
     private javax.swing.JPanel nRepartiAttivi;
     private java.awt.Label nRepartiAttiviL;
     private javax.swing.JPanel navBar;
     private java.awt.Label nome;
     private javax.swing.JButton salva;
+    private javax.swing.JButton salvaConNome;
     private javax.swing.JPanel sfondoHome;
+    private javax.swing.JLabel sforamentoLable;
+    private javax.swing.JLabel speseLable;
     private javax.swing.JPanel speseTot;
     private java.awt.Label speseTotL;
     // End of variables declaration//GEN-END:variables
