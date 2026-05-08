@@ -1,6 +1,9 @@
 package model;
 
+import exceptions.*;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -51,10 +54,14 @@ public class BudgetSight {
 
             while ((riga = br.readLine()) != null) {
                 if (primaRiga) {
-                    primaRiga = false; // salta intestazione
+                    //salta intestazione
+                    primaRiga = false;
                     continue;
                 }
-                if (riga.trim().isEmpty()) continue;
+                if (riga.trim().isEmpty()) {
+                    //salta riga vuota del file di prova
+                    continue;
+                }
 
                 try {
                     VoceBudget v = parseRiga(riga);
@@ -66,6 +73,52 @@ public class BudgetSight {
                 }
             }
         }
+        catch (Exception e) {
+            System.err.println("Errore nell'apertura del file");
+        }
+    }
+    
+    
+    /**
+     * Controlla che una stringa sia un path valido per la scrittura dell'output del file Csv
+     * Nel caso in cui la path non sia valida, imposta di default outputFile.csv come nome del file
+     *
+     * @param percorsoInput è il percorso da validare
+     * @return ritorna la stringa validata
+     */
+    
+    public static String validaPercorso(String percorsoInput) {
+
+        if (percorsoInput == null || percorsoInput.trim().isEmpty()) {
+            return "outputFile.csv";
+        }
+
+        percorsoInput = percorsoInput.trim();
+
+        // Se termina con slash o backslash -> è una directory
+        if (percorsoInput.endsWith("/") || percorsoInput.endsWith("\\")) {
+            return percorsoInput + "outputFile.csv";
+        }
+
+        Path path = Paths.get(percorsoInput);
+
+        // Prendo l'ultimo elemento del path
+        Path fileName = path.getFileName();
+
+        // Caso limite
+        if (fileName == null) {
+            return percorsoInput + "\\outputFile.csv";
+        }
+
+        String nomeFinale = fileName.toString();
+
+        // Se non ha estensione .csv assumo che sia una cartella
+        if (!nomeFinale.toLowerCase().endsWith(".csv")) {
+            return percorsoInput + "\\outputFile.csv";
+        }
+
+        // Path già valido
+        return percorsoInput;
     }
 
     /**
@@ -73,8 +126,13 @@ public class BudgetSight {
      *
      * @param file il file di destinazione
      * @throws IOException se il file non è scrivibile
+     * @throws FileException se la struttura dati è vuota e non c'è nulla da scrivere
      */
-    public void salvaCSV(File file) throws IOException {
+    public void salvaCSV(File file) throws IOException, FileException {
+        if (this.elenco.isEmpty()) {
+            throw new FileException("Impossibile scrivere il file, la struttura dati è vuota.");
+        }
+        
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             // intestazione
             bw.write("idVoce,nomeReparto,responsabile,budgetAnnuale,data,categoria,descrizione,importo");
@@ -86,7 +144,37 @@ public class BudgetSight {
             }
         }
     }
+    
+    /**
+     * Scrive tutte le VoceBudget nella path selezionata.
+     *
+     * @param path è il percorso di destinazione
+     * @throws IOException se il file non è scrivibile
+     * @throws FileException se la struttura dati è vuota e non c'è nulla da scrivere oppure se il file non viene creato correttamente
+     */
+    public void salvaCSV(String path) throws FileException, IOException {
+        if (this.elenco.isEmpty()) {
+            throw new FileException("Impossibile scrivere il file, la struttura dati è vuota.");
+        }
+        //validazione della path
+        path = validaPercorso(path);
+        
+        File file = new File(path);
+        if (!file.createNewFile()) {
+            throw new FileException("Impossibile creare il file, controlla il percorso: potrebbe essere già esistente il file.");
+        }
+        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            // intestazione
+            bw.write("idVoce,nomeReparto,responsabile,budgetAnnuale,data,categoria,descrizione,importo");
+            bw.newLine();
 
+            for (VoceBudget v : elenco) {
+                bw.write(v.toCSV());
+                bw.newLine();
+            }
+        }
+    }
     /**
      * Converte una riga CSV in un oggetto VoceBudget.
      */
@@ -360,4 +448,7 @@ public class BudgetSight {
         }
         return String.format("%04d", max + 1);
     }
+    
+    
+    
 }
