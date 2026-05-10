@@ -84,6 +84,10 @@ public class Home extends javax.swing.JFrame {
         graficoSpese = new javax.swing.JPanel();
         graficoRepartiSforamento = new javax.swing.JPanel();
         graficoCategorieSpese = new javax.swing.JPanel();
+        RicercaVoci = new javax.swing.JButton();
+        ModificaVoci = new javax.swing.JButton();
+        InserisciVoci = new javax.swing.JButton();
+        EliminaVoci = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,6 +198,7 @@ public class Home extends javax.swing.JFrame {
         budgetTotL.setForeground(new java.awt.Color(255, 255, 255));
         budgetTotL.setText("Budget Totale:");
 
+        budgetLable.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         budgetLable.setForeground(new java.awt.Color(255, 255, 255));
         budgetLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         budgetLable.setText("BUDGET TOTALE");
@@ -245,6 +250,7 @@ public class Home extends javax.swing.JFrame {
         speseTotL.setForeground(new java.awt.Color(255, 255, 255));
         speseTotL.setText("Spese Totali:");
 
+        speseLable.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         speseLable.setForeground(new java.awt.Color(255, 255, 255));
         speseLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         speseLable.setText("SPESE TOTALI");
@@ -296,6 +302,7 @@ public class Home extends javax.swing.JFrame {
         nRepartiAttiviL.setForeground(new java.awt.Color(255, 255, 255));
         nRepartiAttiviL.setText("Sforamento Totale:");
 
+        sforamentoLable.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         sforamentoLable.setForeground(new java.awt.Color(255, 255, 255));
         sforamentoLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         sforamentoLable.setText("SFORAMENTO TOTALE");
@@ -306,15 +313,11 @@ public class Home extends javax.swing.JFrame {
             nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nRepartiAttiviLayout.createSequentialGroup()
                 .addComponent(colore3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(nRepartiAttiviLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nRepartiAttiviL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nRepartiAttiviLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                        .addComponent(sforamentoLable, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))))
+                    .addComponent(nRepartiAttiviL, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sforamentoLable, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         nRepartiAttiviLayout.setVerticalGroup(
             nRepartiAttiviLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,9 +352,10 @@ public class Home extends javax.swing.JFrame {
         catMaxSpesaL.setForeground(new java.awt.Color(255, 255, 255));
         catMaxSpesaL.setText("Categoria Max Spesa:");
 
+        maxSpesaLable.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
         maxSpesaLable.setForeground(new java.awt.Color(255, 255, 255));
         maxSpesaLable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        maxSpesaLable.setText("CATEGORIA CON MASSIMA SPESA");
+        maxSpesaLable.setText("CAT. MASSIMA SPESA");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -359,15 +363,11 @@ public class Home extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(colore4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(catMaxSpesaL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 162, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(maxSpesaLable, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))))
+                    .addComponent(catMaxSpesaL, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maxSpesaLable, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,6 +437,48 @@ public class Home extends javax.swing.JFrame {
             .addGap(0, 336, Short.MAX_VALUE)
         );
 
+        RicercaVoci.setBackground(new java.awt.Color(51, 51, 255));
+        RicercaVoci.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        RicercaVoci.setForeground(new java.awt.Color(255, 255, 255));
+        RicercaVoci.setText("Ricerca Voci");
+        RicercaVoci.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RicercaVociMouseClicked(evt);
+            }
+        });
+        RicercaVoci.addActionListener(this::RicercaVociActionPerformed);
+
+        ModificaVoci.setBackground(new java.awt.Color(51, 51, 255));
+        ModificaVoci.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        ModificaVoci.setForeground(new java.awt.Color(255, 255, 255));
+        ModificaVoci.setText("Modifica");
+        ModificaVoci.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ModificaVociMouseClicked(evt);
+            }
+        });
+
+        InserisciVoci.setBackground(new java.awt.Color(51, 51, 255));
+        InserisciVoci.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        InserisciVoci.setForeground(new java.awt.Color(255, 255, 255));
+        InserisciVoci.setText("Inserisci Voci");
+        InserisciVoci.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                InserisciVociMouseClicked(evt);
+            }
+        });
+
+        EliminaVoci.setBackground(new java.awt.Color(51, 51, 255));
+        EliminaVoci.setFont(new java.awt.Font("Verdana", 1, 18)); // NOI18N
+        EliminaVoci.setForeground(new java.awt.Color(255, 255, 255));
+        EliminaVoci.setText("Eliminazione");
+        EliminaVoci.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                EliminaVociMouseClicked(evt);
+            }
+        });
+        EliminaVoci.addActionListener(this::EliminaVociActionPerformed);
+
         javax.swing.GroupLayout sfondoHomeLayout = new javax.swing.GroupLayout(sfondoHome);
         sfondoHome.setLayout(sfondoHomeLayout);
         sfondoHomeLayout.setHorizontalGroup(
@@ -459,7 +501,17 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(graficoCategorieSpese, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
+            .addGroup(sfondoHomeLayout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(RicercaVoci)
+                .addGap(257, 257, 257)
+                .addComponent(ModificaVoci)
+                .addGap(245, 245, 245)
+                .addComponent(InserisciVoci)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(EliminaVoci)
+                .addGap(173, 173, 173))
         );
         sfondoHomeLayout.setVerticalGroup(
             sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,7 +529,13 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(graficoRepartiSforamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(graficoBudget, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(graficoCategorieSpese, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(330, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(sfondoHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(RicercaVoci)
+                    .addComponent(ModificaVoci)
+                    .addComponent(InserisciVoci)
+                    .addComponent(EliminaVoci))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -488,7 +546,7 @@ public class Home extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sfondoHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(sfondoHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         sfondoHome.getAccessibleContext().setAccessibleName("Base");
@@ -501,7 +559,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_infoActionPerformed
 
     private void infoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_infoMouseClicked
-        // TODO add your handling code here:
+        new Info().setVisible(true);        // TODO add your handling code here:
     }//GEN-LAST:event_infoMouseClicked
 
     private void salvaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvaActionPerformed
@@ -578,6 +636,48 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_salvaConNomeActionPerformed
 
+    private void RicercaVociMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RicercaVociMouseClicked
+ 
+        if (bs.getElenco().isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Carica prima il CSV.");
+        return;
+        }
+        
+        new Ricerca(bs).setVisible(true);
+    }//GEN-LAST:event_RicercaVociMouseClicked
+
+    private void ModificaVociMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ModificaVociMouseClicked
+        if (bs.getElenco().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Carica prima il CSV.");
+            return;
+        }
+        new Modifica(bs).setVisible(true);
+    }//GEN-LAST:event_ModificaVociMouseClicked
+
+    private void InserisciVociMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_InserisciVociMouseClicked
+        if (bs.getElenco().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Carica prima il CSV.");
+            return;
+        }
+        new Inserismento(bs).setVisible(true);       
+    }//GEN-LAST:event_InserisciVociMouseClicked
+
+    private void EliminaVociActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminaVociActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EliminaVociActionPerformed
+
+    private void EliminaVociMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminaVociMouseClicked
+        if (bs.getElenco().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Carica prima il CSV.");
+            return;
+        }
+        new Eliminazione(bs).setVisible(true); 
+    }//GEN-LAST:event_EliminaVociMouseClicked
+
+    private void RicercaVociActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RicercaVociActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RicercaVociActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -604,6 +704,10 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EliminaVoci;
+    private javax.swing.JButton InserisciVoci;
+    private javax.swing.JButton ModificaVoci;
+    private javax.swing.JButton RicercaVoci;
     private javax.swing.JLabel budgetLable;
     private javax.swing.JPanel budgetTot;
     private java.awt.Label budgetTotL;

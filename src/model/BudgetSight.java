@@ -413,9 +413,49 @@ public class BudgetSight {
                 risultati.add(v);
             }
         }
+        return risultati; 
+    }
+    
+    
+    public ArrayList<VoceBudget> cercaPerId(String id) {
+        ArrayList<VoceBudget> risultati = new ArrayList<>();
+        if (id == null || id.trim().isEmpty()) return risultati;
+
+        for (VoceBudget v : elenco) {
+            if (v.getIdVoce().equalsIgnoreCase(id.trim())) {
+                risultati.add(v);
+            }
+        }
         return risultati;
     }
 
+    public ArrayList<VoceBudget> cercaPerData(String dataInput) {
+        ArrayList<VoceBudget> risultati = new ArrayList<>();
+        if (dataInput == null || dataInput.trim().isEmpty()) return risultati;
+
+        for (VoceBudget v : elenco) {
+            if (v.getDataFormatted().equalsIgnoreCase(dataInput.trim())) {
+                risultati.add(v);
+            }
+        }
+         return risultati;
+    }
+
+    public ArrayList<VoceBudget> cercaPerDescrizione(String testo) {
+        ArrayList<VoceBudget> risultati = new ArrayList<>();
+         if (testo == null || testo.trim().isEmpty()) return risultati;
+
+        String q = testo.trim().toLowerCase();
+        for (VoceBudget v : elenco) {
+            if (v.getDescrizione() != null && v.getDescrizione().toLowerCase().contains(q)) {
+                risultati.add(v);
+            }
+        }
+        return risultati;
+    }
+    
+    
+        
     // =========================================================
     // GETTER GENERALI (usati dalla GUI)
     // =========================================================

@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Scuola/Info/Progetti/BudgetSight/src/model/VoceBudget.java</file>
-            <file>file:/E:/Scuola/Info/Progetti/BudgetSight/src/model/Reparto.java</file>
-            <file>file:/E:/Scuola/Info/Progetti/BudgetSight/src/model/Categoria.java</file>
-            <file>file:/E:/Scuola/Info/Progetti/BudgetSight/src/model/BudgetSight.java</file>
-            <file>file:/E:/Scuola/Info/Progetti/BudgetSight/src/gui/Home.java</file>
-            <file>file:/E:/Scuola/Info/Progetti/BudgetSight/src/exceptions/CategoriaException.java</file>
+            <file>file:/C:/Users/dario/Desktop/UDA/BudgetSight-main/BudgetSight-main/src/gui/Home.java</file>
+            <file>file:/C:/Users/dario/Desktop/UDA/BudgetSight-main/BudgetSight-main/src/gui/Info.java</file>
+            <file>file:/C:/Users/dario/Desktop/UDA/BudgetSight-main/BudgetSight-main/src/gui/Eliminazione.java</file>
+            <file>file:/C:/Users/dario/Desktop/UDA/BudgetSight-main/BudgetSight-main/src/gui/Inserismento.java</file>
+            <file>file:/C:/Users/dario/Desktop/UDA/BudgetSight-main/BudgetSight-main/src/gui/Ricerca.java</file>
+            <file>file:/C:/Users/dario/Desktop/UDA/BudgetSight-main/BudgetSight-main/src/gui/TabellaVoci.java</file>
+            <file>file:/C:/Users/dario/Desktop/UDA/BudgetSight-main/BudgetSight-main/src/gui/Modifica.java</file>
         </group>
     </open-files>
 </project-private>
