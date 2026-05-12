@@ -10,13 +10,13 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 /**
- * Classe Gestore dell'applicazione BudgetSight.
- * È l'unico punto di accesso ai dati per tutta la GUI.
- * Legge e scrive il file CSV, mantiene l'elenco delle VoceBudget
- * e la HashMap dei Reparto, ed espone tutti i metodi di calcolo
- * necessari alle 4 dashboard.
+ * Main manager class for the BudgetSight application.
+ * Single entry point for all data access from the GUI.
+ * Handles CSV file reading/writing, maintains the list of budget entries and department HashMap,
+ * and exposes all calculation methods needed by the 4 dashboards.
  *
  * @author Computer
+ * @since 1.0
  */
 public class BudgetSight {
 
@@ -26,23 +26,28 @@ public class BudgetSight {
     private static final String SEPARATORE = ",";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    // COSTRUTTORE
+    // CONSTRUCTOR
 
+    /**
+     * Constructs an empty BudgetSight manager.
+     * Initializes empty data structures.
+     */
     public BudgetSight() {
         this.elenco = new ArrayList<>();
         this.reparti = new HashMap<>();
     }
 
     // =========================================================
-    // CSV — LETTURA E SCRITTURA
+    // CSV — FILE READING AND WRITING
     // =========================================================
 
     /**
-     * Legge il file CSV e popola elenco e reparti.
-     * Ignora la prima riga (intestazione).
+     * Loads budget data from a CSV file into memory.
+     * Skips the header row and ignores malformed lines without crashing.
+     * Populates both the elenco and reparti data structures.
      *
-     * @param file il file budget.csv da leggere
-     * @throws IOException se il file non è leggibile
+     * @param file the budget.csv file to read
+     * @throws IOException if the file cannot be read
      */
     public void caricaCSV(File file) throws IOException {
         elenco.clear();
@@ -54,12 +59,12 @@ public class BudgetSight {
 
             while ((riga = br.readLine()) != null) {
                 if (primaRiga) {
-                    //salta intestazione
+                    // Skip header row
                     primaRiga = false;
                     continue;
                 }
                 if (riga.trim().isEmpty()) {
-                    //salta riga vuota del file di prova
+                    // Skip empty lines
                     continue;
                 }
 
@@ -68,73 +73,68 @@ public class BudgetSight {
                     elenco.add(v);
                     aggiungiAReparti(v);
                 } catch (IllegalArgumentException e) {
-                    // riga malformata: la saltiamo senza crashare (exception-safe)
-                    System.err.println("Riga ignorata: " + riga + " — " + e.getMessage());
+                    // Malformed line: skip without crashing (exception-safe)
+                    System.err.println("Skipped line: " + riga + " — " + e.getMessage());
                 }
             }
-        }
-        catch (Exception e) {
-            System.err.println("Errore nell'apertura del file");
+        } catch (Exception e) {
+            System.err.println("Error opening file");
         }
     }
-    
-    
-    /**
-     * Controlla che una stringa sia un path valido per la scrittura dell'output del file Csv
-     * Nel caso in cui la path non sia valida, imposta di default outputFile.csv come nome del file
-     *
-     * @param percorsoInput è il percorso da validare
-     * @return ritorna la stringa validata
-     */
-    
-    public static String validaPercorso(String percorsoInput) {
 
+    /**
+     * Validates a file path string for CSV output.
+     * If the path is invalid, defaults to "outputFile.csv".
+     * Handles both file paths and directory paths intelligently.
+     *
+     * @param percorsoInput the path to validate
+     * @return the validated path string
+     */
+    public static String validaPercorso(String percorsoInput) {
         if (percorsoInput == null || percorsoInput.trim().isEmpty()) {
             return "outputFile.csv";
         }
 
         percorsoInput = percorsoInput.trim();
 
-        // Se termina con slash o backslash -> è una directory
+        // If ends with slash/backslash -> it's a directory
         if (percorsoInput.endsWith("/") || percorsoInput.endsWith("\\")) {
             return percorsoInput + "outputFile.csv";
         }
 
         Path path = Paths.get(percorsoInput);
-
-        // Prendo l'ultimo elemento del path
         Path fileName = path.getFileName();
 
-        // Caso limite
         if (fileName == null) {
             return percorsoInput + "\\outputFile.csv";
         }
 
         String nomeFinale = fileName.toString();
 
-        // Se non ha estensione .csv assumo che sia una cartella
+        // If no .csv extension -> assume it's a directory
         if (!nomeFinale.toLowerCase().endsWith(".csv")) {
             return percorsoInput + "\\outputFile.csv";
         }
 
-        // Path già valido
+        // Path already valid
         return percorsoInput;
     }
 
     /**
-     * Scrive tutte le VoceBudget nel file CSV, sovrascrivendolo.
+     * Saves all budget entries to a CSV file, overwriting existing content.
+     * Includes header row and all data.
      *
-     * @param file il file di destinazione
-     * @throws IOException se il file non è scrivibile
-     * @throws FileException se la struttura dati è vuota e non c'è nulla da scrivere
+     * @param file the destination file
+     * @throws IOException if the file cannot be written
+     * @throws FileException if the data structure is empty
      */
     public void salvaCSV(File file) throws IOException, FileException {
         if (this.elenco.isEmpty()) {
-            throw new FileException("Impossibile scrivere il file, la struttura dati è vuota.");
+            throw new FileException("Cannot write file, data structure is empty.");
         }
-        
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            // intestazione
+            // Header row
             bw.write("idVoce,nomeReparto,responsabile,budgetAnnuale,data,categoria,descrizione,importo");
             bw.newLine();
 
@@ -144,28 +144,29 @@ public class BudgetSight {
             }
         }
     }
-    
+
     /**
-     * Scrive tutte le VoceBudget nella path selezionata.
+     * Saves all budget entries to a specified file path.
+     * Validates the path and creates the file if needed.
      *
-     * @param path è il percorso di destinazione
-     * @throws IOException se il file non è scrivibile
-     * @throws FileException se la struttura dati è vuota e non c'è nulla da scrivere oppure se il file non viene creato correttamente
+     * @param path the destination path
+     * @throws IOException if the file cannot be written
+     * @throws FileException if the data structure is empty or the file cannot be created
      */
     public void salvaCSV(String path) throws FileException, IOException {
         if (this.elenco.isEmpty()) {
-            throw new FileException("Impossibile scrivere il file, la struttura dati è vuota.");
+            throw new FileException("Cannot write file, data structure is empty.");
         }
-        //validazione della path
+        // Path validation
         path = validaPercorso(path);
-        
+
         File file = new File(path);
         if (!file.createNewFile()) {
-            throw new FileException("Impossibile creare il file, controlla il percorso: potrebbe essere già esistente il file.");
+            throw new FileException("Cannot create file, check the path: file may already exist.");
         }
-        
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
-            // intestazione
+            // Header row
             bw.write("idVoce,nomeReparto,responsabile,budgetAnnuale,data,categoria,descrizione,importo");
             bw.newLine();
 
@@ -175,13 +176,19 @@ public class BudgetSight {
             }
         }
     }
+
     /**
-     * Converte una riga CSV in un oggetto VoceBudget.
+     * Parses a CSV line into a VoceBudget object.
+     * Validates all fields and throws IllegalArgumentException on invalid data.
+     *
+     * @param riga the CSV line to parse
+     * @return a new VoceBudget object
+     * @throws IllegalArgumentException if any field is invalid
      */
     private VoceBudget parseRiga(String riga) {
         String[] campi = riga.split(SEPARATORE, -1);
         if (campi.length < 8) {
-            throw new IllegalArgumentException("Numero di campi insufficiente");
+            throw new IllegalArgumentException("Insufficient number of fields");
         }
 
         String idVoce       = campi[0].trim();
@@ -196,19 +203,19 @@ public class BudgetSight {
         try {
             budgetAnnuale = Double.parseDouble(campi[3].trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Budget annuale non valido: " + campi[3]);
+            throw new IllegalArgumentException("Invalid annual budget: " + campi[3]);
         }
 
         try {
             data = LocalDate.parse(campi[4].trim(), FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Data non valida: " + campi[4]);
+            throw new IllegalArgumentException("Invalid date: " + campi[4]);
         }
 
         try {
             importo = Double.parseDouble(campi[7].trim());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Importo non valido: " + campi[7]);
+            throw new IllegalArgumentException("Invalid amount: " + campi[7]);
         }
 
         return new VoceBudget(idVoce, nomeReparto, responsabile,
@@ -216,8 +223,10 @@ public class BudgetSight {
     }
 
     /**
-     * Inserisce una VoceBudget nella HashMap dei reparti.
-     * Se il reparto non esiste ancora, lo crea.
+     * Inserts a voice into the department HashMap.
+     * Creates the department if it doesn't exist yet.
+     *
+     * @param v the VoceBudget to insert
      */
     private void aggiungiAReparti(VoceBudget v) {
         String nomeReparto = v.getNomeReparto();
@@ -232,11 +241,13 @@ public class BudgetSight {
     }
 
     // =========================================================
-    // METODI PER LE 4 DASHBOARD
+    // METHODS FOR THE 4 DASHBOARDS
     // =========================================================
 
     /**
-     * DASHBOARD 1 — Somma dei budget annuali di tutti i reparti.
+     * Dashboard 1 — Total of all departments' annual budgets.
+     *
+     * @return the sum of all annual budgets in euros
      */
     public double getBudgetTotale() {
         double totale = 0;
@@ -247,7 +258,9 @@ public class BudgetSight {
     }
 
     /**
-     * DASHBOARD 2 — Somma di tutti gli importi spesi.
+     * Dashboard 2 — Total amount spent across all departments.
+     *
+     * @return the sum of all expenses in euros
      */
     public double getSpeseTotali() {
         double totale = 0;
@@ -258,7 +271,9 @@ public class BudgetSight {
     }
 
     /**
-     * DASHBOARD 3 — Lista dei reparti che hanno sforato il budget.
+     * Dashboard 3 — List of departments that have exceeded their budget.
+     *
+     * @return an ArrayList of overspent Reparto objects
      */
     public ArrayList<Reparto> getSforamentiAttivi() {
         ArrayList<Reparto> sforati = new ArrayList<>();
@@ -269,7 +284,13 @@ public class BudgetSight {
         }
         return sforati;
     }
-    
+
+    /**
+     * Calculates the total overspending amount across all departments.
+     * Only counts departments that have exceeded their budget.
+     *
+     * @return the total overspending in euros
+     */
     public double getTotaleSforamento() {
         double totale = 0;
         for (Reparto r : reparti.values()) {
@@ -281,8 +302,10 @@ public class BudgetSight {
     }
 
     /**
-     * DASHBOARD 4 — Nome della categoria con la spesa totale più alta
-     * sommando su tutti i reparti.
+     * Dashboard 4 — Category with the highest total spending.
+     * Sums across all departments.
+     *
+     * @return the name of the most expensive category
      */
     public String getCategoriaMaxSpesa() {
         HashMap<String, Double> totPerCategoria = new HashMap<>();
@@ -302,7 +325,12 @@ public class BudgetSight {
         }
         return categoriaMax;
     }
-    
+
+    /**
+     * Returns the department with the highest total spending.
+     *
+     * @return the Reparto with maximum expenses, or null if no departments exist
+     */
     public Reparto getRepartoMaxSpesa() {
         Reparto max = null;
         for (Reparto r : reparti.values()) {
@@ -314,32 +342,33 @@ public class BudgetSight {
     }
 
     // =========================================================
-    // CRUD — INSERIMENTO, MODIFICA, ELIMINAZIONE
+    // CRUD — INSERT, MODIFY, DELETE
     // =========================================================
 
     /**
-     * Aggiunge una nuova voce all'elenco e aggiorna la HashMap dei reparti.
+     * Adds a new expense entry to the list and updates the department HashMap.
      *
-     * @param v la voce da inserire
+     * @param v the VoceBudget to insert (cannot be null)
+     * @throws IllegalArgumentException if the voice is null
      */
     public void inserisciVoce(VoceBudget v) {
         if (v == null) {
-            throw new IllegalArgumentException("La voce non può essere nulla");
+            throw new IllegalArgumentException("Voice cannot be null");
         }
         elenco.add(v);
         aggiungiAReparti(v);
     }
 
     /**
-     * Sostituisce una voce esistente (stesso idVoce) con quella aggiornata,
-     * poi ricostruisce la HashMap dei reparti.
+     * Replaces an existing entry (same idVoce) with updated values.
+     * Rebuilds the department HashMap afterward.
      *
-     * @param vAggiornata la voce con i nuovi valori
-     * @throws NoSuchElementException se l'id non viene trovato
+     * @param vAggiornata the voice with updated values (cannot be null)
+     * @throws NoSuchElementException if the id is not found
      */
     public void modificaVoce(VoceBudget vAggiornata) {
         if (vAggiornata == null) {
-            throw new IllegalArgumentException("La voce non può essere nulla");
+            throw new IllegalArgumentException("Voice cannot be null");
         }
         for (int i = 0; i < elenco.size(); i++) {
             if (elenco.get(i).getIdVoce().equals(vAggiornata.getIdVoce())) {
@@ -348,30 +377,31 @@ public class BudgetSight {
                 return;
             }
         }
-        throw new NoSuchElementException("Nessuna voce trovata con id: " + vAggiornata.getIdVoce());
+        throw new NoSuchElementException("No voice found with id: " + vAggiornata.getIdVoce());
     }
 
     /**
-     * Elimina una voce tramite il suo idVoce,
-     * poi ricostruisce la HashMap dei reparti.
+     * Deletes an entry by its voice ID.
+     * Rebuilds the department HashMap afterward.
      *
-     * @param idVoce l'id della voce da eliminare
-     * @throws NoSuchElementException se l'id non viene trovato
+     * @param idVoce the ID of the voice to delete (cannot be null or empty)
+     * @throws IllegalArgumentException if the id is null or empty
+     * @throws NoSuchElementException if the id is not found
      */
     public void eliminaVoce(String idVoce) {
         if (idVoce == null || idVoce.trim().isEmpty()) {
-            throw new IllegalArgumentException("Id non valido");
+            throw new IllegalArgumentException("ID is invalid");
         }
         boolean rimossa = elenco.removeIf(v -> v.getIdVoce().equals(idVoce));
         if (!rimossa) {
-            throw new NoSuchElementException("Nessuna voce trovata con id: " + idVoce);
+            throw new NoSuchElementException("No voice found with id: " + idVoce);
         }
         ricostruisciReparti();
     }
 
     /**
-     * Ricostruisce da zero la HashMap dei reparti a partire dall'elenco.
-     * Viene chiamata dopo ogni modifica o eliminazione.
+     * Rebuilds the department HashMap from scratch using the current elenco.
+     * Called after every modification or deletion operation.
      */
     private void ricostruisciReparti() {
         reparti.clear();
@@ -381,12 +411,15 @@ public class BudgetSight {
     }
 
     // =========================================================
-    // RICERCHE (requisito UDA: almeno 2 campi)
+    // SEARCH METHODS (requirement: at least 2 fields)
     // =========================================================
 
     /**
-     * Restituisce tutte le voci il cui nomeReparto contiene la stringa cercata
-     * (ricerca case-insensitive).
+     * Searches for entries whose department name contains the given query string.
+     * Search is case-insensitive.
+     *
+     * @param query the search string
+     * @return an ArrayList of matching VoceBudget objects (empty if no matches)
      */
     public ArrayList<VoceBudget> cercaPerReparto(String query) {
         ArrayList<VoceBudget> risultati = new ArrayList<>();
@@ -401,8 +434,11 @@ public class BudgetSight {
     }
 
     /**
-     * Restituisce tutte le voci che appartengono a una categoria specifica
-     * (ricerca case-insensitive).
+     * Searches for entries belonging to a specific category.
+     * Search is case-insensitive.
+     *
+     * @param categoria the category name to search for
+     * @return an ArrayList of matching VoceBudget objects (empty if no matches)
      */
     public ArrayList<VoceBudget> cercaPerCategoria(String categoria) {
         ArrayList<VoceBudget> risultati = new ArrayList<>();
@@ -413,10 +449,16 @@ public class BudgetSight {
                 risultati.add(v);
             }
         }
-        return risultati; 
+        return risultati;
     }
-    
-    
+
+    /**
+     * Searches for an entry by its exact voice ID.
+     * Search is case-insensitive.
+     *
+     * @param id the voice ID to search for
+     * @return an ArrayList containing the matching voice, or empty if not found
+     */
     public ArrayList<VoceBudget> cercaPerId(String id) {
         ArrayList<VoceBudget> risultati = new ArrayList<>();
         if (id == null || id.trim().isEmpty()) return risultati;
@@ -429,6 +471,13 @@ public class BudgetSight {
         return risultati;
     }
 
+    /**
+     * Searches for entries with a specific expense date.
+     * Date must be in format "dd-MM-yyyy".
+     *
+     * @param dataInput the date string to search for
+     * @return an ArrayList of matching VoceBudget objects (empty if no matches)
+     */
     public ArrayList<VoceBudget> cercaPerData(String dataInput) {
         ArrayList<VoceBudget> risultati = new ArrayList<>();
         if (dataInput == null || dataInput.trim().isEmpty()) return risultati;
@@ -438,12 +487,19 @@ public class BudgetSight {
                 risultati.add(v);
             }
         }
-         return risultati;
+        return risultati;
     }
 
+    /**
+     * Searches for entries whose description contains the given text.
+     * Search is case-insensitive.
+     *
+     * @param testo the text to search for in descriptions
+     * @return an ArrayList of matching VoceBudget objects (empty if no matches)
+     */
     public ArrayList<VoceBudget> cercaPerDescrizione(String testo) {
         ArrayList<VoceBudget> risultati = new ArrayList<>();
-         if (testo == null || testo.trim().isEmpty()) return risultati;
+        if (testo == null || testo.trim().isEmpty()) return risultati;
 
         String q = testo.trim().toLowerCase();
         for (VoceBudget v : elenco) {
@@ -453,28 +509,45 @@ public class BudgetSight {
         }
         return risultati;
     }
-    
-    
-        
+
     // =========================================================
-    // GETTER GENERALI (usati dalla GUI)
+    // GENERAL GETTERS (used by the GUI)
     // =========================================================
 
+    /**
+     * Returns the complete list of all budget entries.
+     *
+     * @return the ArrayList of VoceBudget objects
+     */
     public ArrayList<VoceBudget> getElenco() {
         return elenco;
     }
 
+    /**
+     * Returns the HashMap of all departments.
+     *
+     * @return the HashMap with department names as keys and Reparto objects as values
+     */
     public HashMap<String, Reparto> getReparti() {
         return reparti;
     }
 
+    /**
+     * Retrieves a specific department by name.
+     *
+     * @param nomeReparto the department name to search for
+     * @return the Reparto object, or null if not found
+     */
     public Reparto getReparto(String nomeReparto) {
         return reparti.get(nomeReparto);
     }
 
     /**
-     * Genera un nuovo id univoco a 4 cifre basandosi sul massimo id presente.
-     * Utile nel dialog di inserimento per pre-compilare il campo id.
+     * Generates a new unique 4-digit ID for a new entry.
+     * Based on the maximum existing ID in the list.
+     * Useful for pre-filling the ID field in insert dialogs.
+     *
+     * @return a new ID as a 4-digit formatted string (e.g., "0001")
      */
     public String generaNuovoId() {
         int max = 0;
@@ -483,12 +556,9 @@ public class BudgetSight {
                 int id = Integer.parseInt(v.getIdVoce());
                 if (id > max) max = id;
             } catch (NumberFormatException e) {
-                // ignora id malformati
+                // Ignore malformed IDs
             }
         }
         return String.format("%04d", max + 1);
     }
-    
-    
-    
 }
