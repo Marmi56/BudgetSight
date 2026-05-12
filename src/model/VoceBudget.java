@@ -5,25 +5,68 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Rappresenta una singola riga del file budget.csv.
- * Contiene tutti i campi grezzi letti dal file, prima che il Gestore
- * li organizzi in oggetti Reparto e Categoria.
+ * Represents a single row inside the budget CSV file.
  *
- * @author Computer
+ * This class stores all raw information loaded from the CSV source
+ * before the data is organized into {@link Reparto} and {@link Categoria} objects.
+ *
+ * @author delbuer
  */
 public class VoceBudget {
-
+    
+    /**
+     * Unique entry identifier.
+     */
     private String idVoce;
+    /**
+     * Department name.
+     */
     private String nomeReparto;
+     /**
+     * Department manager name.
+     */
     private String responsabile;
+     /**
+     * Annual budget assigned to the department.
+     */
     private double budgetAnnuale;
+    /**
+     * Expense date.
+     */
     private LocalDate data;
+    /**
+     * Expense category.
+     */
     private String categoria;
+    /**
+     * Expense description.
+     */
     private String descrizione;
+    /**
+     * Expense amount.
+     */
     private double importo;
+    /**
+     * Formatter used for date conversion.
+     */
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    /**
+     * CSV separator character.
+     */
     private static final String SEPARATORE = ",";
+     /**
+     * Creates a complete {@code VoceBudget} object.
+     *
+     * @param idVoce the unique entry identifier
+     * @param nomeReparto the department name
+     * @param responsabile the department manager
+     * @param budgetAnnuale the annual budget
+     * @param data the expense date
+     * @param categoria the expense category
+     * @param descrizione the expense description
+     * @param importo the expense amount
+     */
 
     // COSTRUTTORI
 

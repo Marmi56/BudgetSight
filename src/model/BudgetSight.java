@@ -10,28 +10,52 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 /**
- * Classe Gestore dell'applicazione BudgetSight.
- * È l'unico punto di accesso ai dati per tutta la GUI.
- * Legge e scrive il file CSV, mantiene l'elenco delle VoceBudget
- * e la HashMap dei Reparto, ed espone tutti i metodi di calcolo
- * necessari alle 4 dashboard.
+ * Main application manager for the BudgetSight system.
  *
- * @author Computer
+ * This class acts as the single access point for the graphical user interface,
+ * managing CSV reading and writing operations, budget entries, departments,
+ * and all calculation utilities required by the dashboards.
+ *
+ * @author delbuer
+ * @see VoceBudget
+ * @see Reparto
+ * @see Categoria
  */
 public class BudgetSight {
-
+    /**
+     * List containing all budget entries.
+     */
     private ArrayList<VoceBudget> elenco;
+    /**
+     * Map containing all departments indexed by name.
+     */
     private HashMap<String, Reparto> reparti;
-
+    /**
+     * CSV separator character.
+     */
     private static final String SEPARATORE = ",";
+     /**
+     * Formatter used for date conversion.
+     */
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
+    /**
+     * Creates a new {@code BudgetSight} manager.
+     */
     // COSTRUTTORE
 
     public BudgetSight() {
         this.elenco = new ArrayList<>();
         this.reparti = new HashMap<>();
     }
+    /**
+     * Loads and parses the CSV file.
+     *
+     * The method populates the internal collections of
+     * {@link VoceBudget} and {@link Reparto} objects.
+     *
+     * @param file the CSV file to load
+     * @throws IOException if the file cannot be read
+     */
 
     // =========================================================
     // CSV — LETTURA E SCRITTURA
@@ -77,15 +101,17 @@ public class BudgetSight {
             System.err.println("Errore nell'apertura del file");
         }
     }
-    
-    
-    /**
-     * Controlla che una stringa sia un path valido per la scrittura dell'output del file Csv
-     * Nel caso in cui la path non sia valida, imposta di default outputFile.csv come nome del file
+     /**
+     * Validates the output CSV path.
      *
-     * @param percorsoInput è il percorso da validare
-     * @return ritorna la stringa validata
+     * If the provided path is invalid, a default filename
+     * named {@code outputFile.csv} is automatically generated.
+     *
+     * @param percorsoInput the input path to validate
+     * @return the validated path string
      */
+    
+    
     
     public static String validaPercorso(String percorsoInput) {
 

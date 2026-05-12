@@ -9,6 +9,19 @@ package exceptions;
  * @author Computer
  */
 public class FileException extends Exception{
+    /**
+ * Exception thrown when an error occurs during file operations.
+ *
+ * This exception is used by the application to report issues related
+ * to reading, writing, loading, or validating external files.
+ *
+ * @author delbuer
+ */
+    /**
+     * Creates a new {@code FileException} with the specified detail message.
+     *
+     * @param message the detail message describing the exception
+     */
 
     public FileException() {
         super();

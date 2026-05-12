@@ -2,17 +2,40 @@ package model;
 
 import exceptions.*;
 import java.util.ArrayList;
-
 /**
- * Rappresenta un reparto aziendale con il proprio budget annuale
- * e la lista delle spese suddivise per categoria.
+ * Represents a company department with its annual budget
+ * and the related expense categories.
+ *
+ * The class provides calculation utilities and CRUD operations
+ * for managing category entries.
+ *
+ * @author delbuer
+ * @see Categoria
  */
 public class Reparto {
-
+    /**
+     * Department name.
+     */
     private String nomeReparto;
+    /**
+     * Department manager.
+     */
     private String responsabile;
+    /**
+     * Annual department budget.
+     */
     private double budgetAnnuale;
+    /**
+     * List of associated categories.
+     */
     private ArrayList<Categoria> categorie;
+     /**
+     * Creates a new department with initialized values.
+     *
+     * @param nomeReparto the department name
+     * @param responsabile the department manager
+     * @param budgetAnnuale the annual budget
+     */
 
     // COSTRUTTORI
 
@@ -22,6 +45,9 @@ public class Reparto {
         this.setBudgetAnnuale(budgetAnnuale);
         this.categorie = new ArrayList<>();
     }
+        /**
+     * Creates an empty {@code Reparto} object.
+     */
 
     public Reparto() {
         this.nomeReparto = "";
@@ -29,6 +55,11 @@ public class Reparto {
         this.budgetAnnuale = 0;
         this.categorie = new ArrayList<>();
     }
+    /**
+     * Calculates the total amount spent by the department.
+     *
+     * @return the total spent amount
+     */
 
     public Reparto(Reparto r) {
         this.nomeReparto = r.nomeReparto;
@@ -81,7 +112,9 @@ public class Reparto {
     // METODI DI CALCOLO (per le dashboard)
 
     /**
-     * Somma tutti gli importi delle categorie del reparto.
+     * Calculates the total amount spent by the department.
+     *
+     * @return the total spent amount
      */
     public double getTotaleSpeso() {
         double totale = 0;
@@ -92,24 +125,24 @@ public class Reparto {
     }
 
     /**
-     * Budget annuale meno il totale speso.
+     * Returns the remaining annual budget.
+     *
+     * @return the remaining budget amount
      */
     public double getBudgetRimanente() {
         return budgetAnnuale - getTotaleSpeso();
     }
 
     /**
-     * Restituisce true se il totale speso supera il budget annuale.
+     * Checks whether the department exceeded the annual budget.
+     *
+     * @return {@code true} if the budget is exceeded, otherwise {@code false}
      */
     public boolean isSforato() {
         return getTotaleSpeso() > budgetAnnuale;
     }
 
-    /**
-     * Somma gli importi di tutte le voci che appartengono a una categoria specifica.
-     * Utile per il grafico a torta e la dashboard "Top Categoria".
-     */
-    public double getSpesaPerCategoria(String nomeCategoria) {
+   double getSpesaPerCategoria(String nomeCategoria) {
         double totale = 0;
         for (Categoria c : categorie) {
             if (c.getNomeCategoria().equalsIgnoreCase(nomeCategoria)) {
@@ -120,9 +153,11 @@ public class Reparto {
     }
 
     // METODI CRUD sulle categorie
-
-    /**
-     * Aggiunge una voce di spesa al reparto.
+/**
+     * Adds a category entry to the department.
+     *
+     * @param c the category to add
+     * @throws IllegalArgumentException if the category is null
      */
     public void aggiungiCategoria(Categoria c) {
         if (c == null) {
@@ -131,9 +166,12 @@ public class Reparto {
         categorie.add(c);
     }
 
-    /**
-     * Rimuove una voce di spesa dalla lista.
-     * @throws CategoriaException se la categoria non è presente
+ /**
+     * Removes a category entry from the department.
+     *
+     * @param c the category to remove
+     * @throws CategoriaException if the category is not found
+     * @throws IllegalArgumentException if the category is null
      */
     public void rimuoviCategoria(Categoria c) throws CategoriaException {
         if (c == null) {
